@@ -1,15 +1,15 @@
 import { useState } from "react";
 
-export default function useLogin(url) {
+export default function useSignup(url) {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const login = async (userData) => {
+    const signup = async (userData) => {
         setIsLoading(true);
         setError(null);
 
         try {
-            console.log("🔹 Sending login request:", userData);
+            console.log("🔹 Sending signup request:", userData);
 
             const response = await fetch(url, {
                 method: "POST",
@@ -21,9 +21,9 @@ export default function useLogin(url) {
             console.log("🔹 API Response:", data);
 
             if (!response.ok) {
-                setError(data.error || "Login failed");
+                setError(data.error || "Signup failed");
                 setIsLoading(false);
-                return null;  // ✅ Return `null` on failure
+                return null;  // Return `null` only when an error occurs
             }
 
             // Store only necessary user data (excluding password)
@@ -31,7 +31,7 @@ export default function useLogin(url) {
             localStorage.setItem("user", JSON.stringify({ ...userDetails, token }));
 
             setIsLoading(false);
-            return data;  // Return user data on success
+            return data;  // Return `data` when signup succeeds
         } catch (err) {
             console.error("❌ Network or Server Error:", err);
             setError("Something went wrong. Please try again.");
@@ -40,5 +40,5 @@ export default function useLogin(url) {
         }
     };
 
-    return { login, isLoading, error };
+    return { signup, isLoading, error };
 }

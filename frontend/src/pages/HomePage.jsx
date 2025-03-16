@@ -1,38 +1,37 @@
 import { useEffect, useState } from "react";
-import JobListings from "../components/JobListings";
+import CourseListings from "../components/CourseListings";
 
-const Home = () => {
-  const [jobs, setJobs] = useState(null);
+const HomePage = () => {
+  const [courses, setCourses] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchJobs = async () => {
+    const fetchCourses = async () => {
       try {
-        const res = await fetch("api/jobs");
+        const res = await fetch("/api/courses");
         if (!res.ok) {
-          throw new Error("could not fetch the data for that resource");
+          throw new Error("Could not fetch the courses");
         }
         const data = await res.json();
         setIsPending(false);
-        setJobs(data);
+        setCourses(data);
         setError(null);
       } catch (err) {
         setIsPending(false);
         setError(err.message);
       }
     };
-    // setTimeout(() => {fetchJobs();}, 1000); // Delay of 1 second
-    fetchJobs();
+    fetchCourses();
   }, []);
 
   return (
-    <div className="home">
-      {error && <div>{error}</div>}
-      {isPending && <div>Loading...</div>}
-      {jobs && <JobListings jobs={jobs} />}
+    <div className="home p-6">
+      {error && <div className="text-red-500">{error}</div>}
+      {isPending && <div className="text-gray-700">Loading...</div>}
+      {courses && <CourseListings courses={courses} />}
     </div>
   );
 };
 
-export default Home;
+export default HomePage;

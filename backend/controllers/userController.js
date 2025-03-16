@@ -5,7 +5,8 @@ const validator = require("validator");
 
 // Generate JWT
 const generateToken = (_id) => {
-  return jwt.sign({ _id }, process.env.JWT_SECRET, { expiresIn: "3d" });
+  console.log("🔐 JWT Secret:", process.env.SECRET);  // Debugging
+  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
 };
 
 const signupUser = async (req, res) => {
