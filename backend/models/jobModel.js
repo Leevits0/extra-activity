@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-const jobSchema = new mongoose.Schema({
+const courseSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  type: { type: String, required: true },
-  description: { type: String, required: true },
-  company: {
+  duration: { type: String, required: true },
+  fee: { type: Number, required: true },
+  instructor: {
     name: { type: String, required: true },
     contactEmail: { type: String, required: true },
     contactPhone: { type: String, required: true }
