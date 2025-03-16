@@ -13,7 +13,7 @@ const courseSchema = new mongoose.Schema({
 
 
 //add  virtual field id
-jobSchema.set('toJSON', {
+courseSchema.set('toJSON', {
   virtuals: true,
   transform: (doc, ret) => {
     ret.id = ret._id;
@@ -21,7 +21,7 @@ jobSchema.set('toJSON', {
   }
 });
 
-const Job = mongoose.model('Job', jobSchema);
+const Course = mongoose.model('Course', courseSchema);
 
-module.exports = Job;
+module.exports = Course;
 
